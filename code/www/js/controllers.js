@@ -4,7 +4,7 @@ angular.module('songhop.controllers', ['ionic', 'songhop.services'])
 /*
 Controller for the discover page
 */
-.controller('DiscoverCtrl', function($scope, $timeout) {
+.controller('DiscoverCtrl', function($scope, $timeout, User) {
   // our first three songs
   $scope.songs = [
      {
@@ -30,6 +30,8 @@ Controller for the discover page
   $scope.currentSong = angular.copy($scope.songs[0]);
 
   $scope.sendFeedback = function (bool) {
+    // add to favourites if they favourited song
+    if (bool) User.addSongToFavorites($scope.currentSong);
 
       // set variable for the correct animation sequence
       $scope.currentSong.rated = bool;
@@ -52,8 +54,9 @@ Controller for the discover page
 /*
 Controller for the favorites page
 */
-.controller('FavoritesCtrl', function($scope) {
-
+.controller('FavoritesCtrl', function($scope, User) {
+  // get the list of our favorites from the user service
+  $scope.favorites = User.favorites;
 })
 
 
