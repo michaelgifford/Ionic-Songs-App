@@ -5,12 +5,12 @@
     <div class="list card current-song">
 
       <div class="item item-image">
-        <img ng-src="/img/ionic.png">
+        <img ng-src="{{ currentSong.image_large }}">
       </div>
 
       <div class="item">
-        <h2>It's so cold in Wisconsin</h2>
-        <p>Max Lynch</p>
+        <h2>{{ currentSong.title }}</h2>
+        <p>{{ currentSong.artist }}</p>
       </div>
 
       <div class="item tabs tabs-secondary tabs-icon-left">
