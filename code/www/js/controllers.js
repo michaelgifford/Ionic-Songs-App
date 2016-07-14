@@ -27,6 +27,15 @@ Controller for the discover page
       }, 250)
   }
 
+  // retrieving next album artwork image
+  $scope.nextAlbumImg = function() {
+    if (Recommendations.queue.length > 1) {
+      return Recommendations.queue[1].image_large;
+    }
+    // return empty string if no album artwork available next.\
+    return '';
+  }
+
 })
 
 
