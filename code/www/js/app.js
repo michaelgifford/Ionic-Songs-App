@@ -15,7 +15,7 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-    
+
 
   });
 })
@@ -66,7 +66,7 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
 
 
 .constant('SERVER', {
-  // Local server
+  // Localhost server
   //url: 'http://localhost:3000'
 
   // Public Heroku server
