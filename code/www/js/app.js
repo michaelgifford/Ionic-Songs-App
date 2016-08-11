@@ -29,11 +29,16 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
   // Each state's controller can be found in controllers.js.
   $stateProvider
 
-  // Set up a state for splash
+  // Set up a state for splash page
   .state('splash', {
     url: '/',
     templateUrl: 'templates/splash.html',
-    controller: 'SplashCtrl'
+    controller: 'SplashCtrl',
+    onEnter: function($state, User){ // check if session exist
+      User.checkSession().then(function(hasSession) {
+        if (hasSession) $state.go('tab.discover');
+      });
+    }
   })
 
   // Set up  abstract state for  tabs directive:
@@ -41,11 +46,20 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html',
-    controller: 'TabsCtrl'
+    controller: 'TabsCtrl',
+     resolve: {   // don't load the state until we've populated our User, if necessary.
+       populateSession: function(User) {
+         return User.checkSession();
+       }
+     },
+     onEnter: function($state, User){
+       User.checkSession().then(function(hasSession) {
+         if (!hasSession) $state.go('splash');
+       });
+     }
   })
 
   // Each tab has own nav history stack:
-
   .state('tab.discover', {
     url: '/discover',
     views: {
@@ -55,7 +69,6 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
       }
     }
   })
-
   .state('tab.favorites', {
       url: '/favorites',
       views: {
@@ -65,11 +78,11 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
         }
       }
     })
+
   // If none of the above states are matched, use this as the fallback:
   $urlRouterProvider.otherwise('/');
 
 })
-
 
 .constant('SERVER', {
   // Localhost server

@@ -1,6 +1,5 @@
 angular.module('songhop.controllers', ['ionic', 'songhop.services'])
 
-
 /*
 Controller for the discover page
 */
@@ -70,13 +69,14 @@ Controller for the discover page
 
 })
 
-
 /*
 Controller for the favorites page
 */
 .controller('FavoritesCtrl', function($scope, $window, User) {
   // get the list of our favorites from the user service
   $scope.favorites = User.favorites;
+  // expose username to scope
+  $scope.username = User.username;
 
   $scope.openSong = function(song) {
   $window.open(song.open_url, "_system");
@@ -85,7 +85,6 @@ Controller for the favorites page
   User.removeSongFromFavorites(song, index);
   }
 })
-
 
 /*
 Controller for our tab bar
@@ -101,6 +100,12 @@ Controller for our tab bar
   }
   $scope.leavingFavorites = function() {
   Recommendations.init();
+  }
+  // logic for logging out (ending session)
+  $scope.logout = function() {
+  User.destroySession();
+  // instead of using $state.go, we're going to redirect (reason: we need to ensure views aren't cached.)
+  $window.location.href = 'index.html';
   }
 })
 
