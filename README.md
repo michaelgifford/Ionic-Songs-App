@@ -2,7 +2,7 @@
 
 <b>DESCRIPTION</b>
 
-Ionic iOS/Android mobile app made with reference to the songhop tutorial by thinkster. Users swipe through 30 second clips of songs drawn from Spotify. Songs liked by the user are saved to a favourites list on their account for future reference and can be clicked to view on a browser.
+iOS/Android mobile app using Ionic and Angular made with reference to the songhop tutorial by thinkster. Users swipe through 30 second clips of songs drawn from Spotify. Songs liked by the user are saved to a favourites list on their account for future reference and can be clicked to view on a browser.
 
 
 <b>USAGE/INSTALLATION</b>
