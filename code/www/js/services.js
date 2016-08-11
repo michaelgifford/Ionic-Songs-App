@@ -74,5 +74,17 @@ angular.module('songhop.services', [])
   if (media) media.pause();
   }
 
+  o.init = function() {
+  if (o.queue.length === 0) {
+    // if there's nothing in the queue, fill it.
+    // this also means that this is the first call of init.
+    return o.getNextSongs();
+
+  } else {
+    // otherwise, play the current song
+    return o.playCurrentSong();
+  }
+  }
+
   return o;
 });
