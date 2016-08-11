@@ -13,5 +13,5 @@ Ionic iOS/Android mobile app made with reference to the songhop tutorial by thin
 
 3.) Run the command 'ionic serve' to start the local server. It should load the app on localhost within a browser.
 
-Google Chome Users can Right Click -> Inspect the webpage and click "Toggle Device Toolbar" to view the app as a mobile app without
+**Google Chome Users can Right Click -> Inspect the webpage and click "Toggle Device Toolbar" to view the app as a mobile app without
 resizing the browser window.
