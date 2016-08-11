@@ -1,19 +1,36 @@
 angular.module('songhop.services', [])
-.factory('User', function() {
+.factory('User', function($http, SERVER) {
 
   var o = {
+    username: false,
+    session_id: false,
     favorites: [],
     newFavorites: 0
   };
 
-  o.addSongToFavorites = function(song) {
-    // make sure there's a song to add
-    if (!song) return false;
+  // authorize login or signup
+  o.auth = function(username, signingUp) {
+    var authRoute;
 
-    // add to favorites array
-    o.favorites.unshift(song);
-    o.newFavorites++;
-  };
+    if (signingUp) {
+      authRoute = 'signup';
+    } else {
+      authRoute = 'login'
+    }
+    return $http.post(SERVER.url + '/' + authRoute, {username: username});
+  }
+
+  o.addSongToFavorites = function(song) {
+      // checks for a song to add
+      if (!song) return false;
+
+      // add to favorites array
+      o.favorites.unshift(song);
+      o.newFavorites++;
+
+      // post to server
+      return $http.post(SERVER.url + '/favorites', {session_id: o.session_id, song_id:song.song_id });
+  }
 
   o.removeSongFromFavorites = function(song, index) {
      // make sure there's a song to add
@@ -21,10 +38,29 @@ angular.module('songhop.services', [])
 
      // add to favorites array
      o.favorites.splice(index, 1);
-  };
+
+     // post to server
+    return $http({
+      method: 'DELETE',
+      url: SERVER.url + '/favorites',
+      params: { session_id: o.session_id, song_id:song.song_id }
+    });
+  }
 
   o.favoriteCount = function() {
   return o.newFavorites;
+  };
+
+  // gets entire list of user's favs from server
+  o.populateFavorites = function() {
+    return $http({
+      method: 'GET',
+      url: SERVER.url + '/favorites',
+      params: { session_id: o.session_id }
+    }).success(function(data){
+      // merge data into queue
+      o.favorites = data;
+    });
   };
 
   return o;

@@ -29,8 +29,14 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
   // Each state's controller can be found in controllers.js.
   $stateProvider
 
+  // Set up a state for splash
+  .state('splash', {
+    url: '/',
+    templateUrl: 'templates/splash.html',
+    controller: 'SplashCtrl'
+  })
 
-  // Set up an abstract state for the tabs directive:
+  // Set up  abstract state for  tabs directive:
   .state('tab', {
     url: '/tab',
     abstract: true,
@@ -38,7 +44,7 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
     controller: 'TabsCtrl'
   })
 
-  // Each tab has its own nav history stack:
+  // Each tab has own nav history stack:
 
   .state('tab.discover', {
     url: '/discover',
@@ -60,7 +66,7 @@ angular.module('songhop', ['ionic', 'songhop.controllers'])
       }
     })
   // If none of the above states are matched, use this as the fallback:
-  $urlRouterProvider.otherwise('/tab/discover');
+  $urlRouterProvider.otherwise('/');
 
 })
 

@@ -102,4 +102,20 @@ Controller for our tab bar
   $scope.leavingFavorites = function() {
   Recommendations.init();
   }
-});
+})
+
+/*
+Controller for splash state
+*/
+.controller('SplashCtrl', function($scope, $state, User) {
+  // attempt to signup/login via User.auth
+ $scope.submitForm = function(username, signingUp) {
+   User.auth(username, signingUp).then(function(){
+     // session is now set, so lets redirect to discover page
+     $state.go('tab.discover');
+   }, function() {
+     // error handling here
+     alert('Hmm... try another username.');
+   });
+ }
+})
